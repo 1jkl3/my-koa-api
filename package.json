@@ -1,0 +1,37 @@
+{
+  "name": "koatest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.ts",
+  "scripts": {
+    "server": "tsc && nodemon src/lib/www.ts",
+    "watch": "cross-env nodemon --watch 'src/**/*' -e ts,tsx --exec 'ts-node' src/lib/www.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Apache 2.0",
+  "dependencies": {
+    "debug": "^4.1.1",
+    "gd-bmp": "^1.2.4",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.12.0",
+    "koa-body": "^4.2.0",
+    "koa-json": "^2.0.2",
+    "koa-logger": "^3.2.1",
+    "koa-onerror": "^4.1.0",
+    "koa-router": "^9.0.1",
+    "koa-static": "^5.0.0",
+    "mongoose": "^5.9.21",
+    "sha1": "^1.1.1",
+    "socket.io": "^2.3.0",
+    "xss": "^1.0.7"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.11.3",
+    "@types/koa-router": "^7.4.1",
+    "cross-env": "^7.0.2",
+    "nodemon": "^2.0.4",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5"
+  }
+}

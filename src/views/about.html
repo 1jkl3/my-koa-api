@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+  </head>
+  <body>
+    关于页面
+    <input type="file" value="" id="upload" />
+    <script>
+      let upload = document.getElementById("upload");
+      upload.onchange = function (e) {
+        console.log(e.target.files);
+        let form = new FormData();
+        form.append("images",e.target.files[0]);
+        $.ajax({
+          method: "post",
+          url: "/api/upload",
+          data:form,
+          contentType: false,
+          processData: false,
+          success:function(e){
+              console.log(e);
+          },
+          error:function(err){
+              console.log(err);
+          }
+        });
+      };
+    </script>
+  </body>
+</html>

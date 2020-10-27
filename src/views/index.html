@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>首页</title>
+    <script src="javascript/socket.js"></script>
+  </head>
+  <body>
+    <div>首页</div>
+    <a href="about.html">关于</a>
+
+    <input type="text" id="text" />
+    <button onclick="send()">点击发送</button>
+    <button onclick="closeClick()">点击关闭</button>
+    <button onclick="openClick()">点击开启</button>
+  </body>
+  <script>
+    var socket = io("ws://127.0.0.1:80?roomid=1");
+    socket.on("connect", function () {
+      console.log("连接成功");
+    });
+    // 接受服务器的数据
+    socket.on("event", function (data) {
+      console.log(data);
+    });
+    // 发送到服务器
+    function send() {
+      var text = document.getElementById("text").value;
+      socket.emit("message", { name: text });
+      socket.emit("about", { name: text });
+    }
+    // 服务器返回的对应数据
+    socket.on("ServerMsg",(msg)=>{
+        console.log(msg);
+    })
+    socket.on("radio", (e) => {
+      console.log(e);
+    });
+    socket.on("event_name",(e)=>{
+        console.log(e);
+    })
+    socket.on("aboutEmit",(e)=>{
+      console.log(e);
+    })
+    // 监听断开
+    socket.on("disconnect", function () {
+      console.log("服务器断开连接");
+    });
+    // 监听重新连接
+    socket.on("reconnect", function () {
+      console.log("重新连接到服务器");
+    });
+    // 打开连接
+    function openClick() {
+        socket.open();
+    }
+    // 断开连接
+    function closeClick() {
+      socket.disconnect();
+    }
+  </script>
+</html>
