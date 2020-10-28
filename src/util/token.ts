@@ -21,8 +21,9 @@ class TokenData {
   public async check_token(ctx: any, next: Function): Promise<void | Error> {
     try {
       // 解析url
+      let length = ctx.url.indexOf("?") === -1 ? ctx.url.length : ctx.url.indexOf("?");
       if (ctx.method == "GET") {
-        this.url = ctx.url.substring(0, ctx.url.indexOf("?"));
+        this.url = ctx.url.substring(0, length);
       } else {
         this.url = ctx.url;
       }

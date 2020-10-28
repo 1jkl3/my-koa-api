@@ -26,7 +26,6 @@ app.use(require("koa-json")());
 app.use(
   require("koa-body")({
     multipart: true, // 支持文件上传
-    encoding:'gzip',// 压缩
     formidable: {
       multipart:true,
       uploadDir:path.join(__dirname,'static/file/'), // 设置文件上传目录
@@ -54,28 +53,28 @@ const Index = require("./router/index");
 app.use(Index.routes(), Index.allowedMethods());
 
 // socket
-io.on("connection", (socket: any) => {
-  var roomid = socket.handshake.query.roomid;
-  // 加入分组
-  socket.join("group" + roomid);
-  io.sockets.in("group" + roomid).emit("event_name", "分组信息" + roomid);
-  // 接受客户端传入的数据
-  socket.on("message", (msg: string) => {
-    // console.log(msg);
-    socket.emit("ServerMsg", msg);
-  });
-  socket.on("about", (msg: string) => {
-    console.log(msg);
-    socket.emit("aboutEmit", msg);
-  });
-  socket.on("disconnect", () => {
-    console.log("关闭");
-  });
-  // 全体广播
-  io.emit("radio", "我是服务器传到客户端的广播数据，群发的哦！");
-  // 发送到客户端的数据（第一个参数为key，第二个参数为value）  broadcast 给除了自己以外的客户端广播消息
-  socket.broadcast.emit("event", "我的服务端的数据");
-});
+// io.on("connection", (socket: any) => {
+//   var roomid = socket.handshake.query.roomid;
+//   // 加入分组
+//   socket.join("group" + roomid);
+//   io.sockets.in("group" + roomid).emit("event_name", "分组信息" + roomid);
+//   // 接受客户端传入的数据
+//   socket.on("message", (msg: string) => {
+//     // console.log(msg);
+//     socket.emit("ServerMsg", msg);
+//   });
+//   socket.on("about", (msg: string) => {
+//     console.log(msg);
+//     socket.emit("aboutEmit", msg);
+//   });
+//   socket.on("disconnect", () => {
+//     console.log("关闭");
+//   });
+//   // 全体广播
+//   io.emit("radio", "我是服务器传到客户端的广播数据，群发的哦！");
+//   // 发送到客户端的数据（第一个参数为key，第二个参数为value）  broadcast 给除了自己以外的客户端广播消息
+//   socket.broadcast.emit("event", "我的服务端的数据");
+// });
 
 // 监听异常
 app.on("error", (err: string, ctx: object) => {

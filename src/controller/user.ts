@@ -24,6 +24,8 @@ class User {
   }
   // 登录用户
   public async login(ctx: any, next: Function): Promise<void | Error> {
+    console.log(ctx);
+    
     try {
       let { user_id, user_pass } = ctx.request.body;
       // 使用sha1算法加密密码
